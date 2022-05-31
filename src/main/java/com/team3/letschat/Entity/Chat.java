@@ -12,14 +12,12 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String message;
-    private User user;
 
     public Chat(){}
 
-    public Chat(String message, User user)
+    public Chat(String message)
     {
         this.message = message;
-        this.user = user;
     }
 
     public void setMessage(String msg)
@@ -31,11 +29,5 @@ public class Chat {
     {
         return message;
     }
-
-    public User getUser()
-    {
-        return user;
-    }
-
 
 }

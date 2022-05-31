@@ -17,7 +17,7 @@ public class ChatController {
     @GetMapping("/")
     public String Welcome()
     {
-        return "<html><h1> Welcome to Course Application! </h1></html>";
+        return "<html><h1> Welcome to Chat Application! </h1></html>";
     }
 
     @GetMapping("/getallchats")
@@ -32,9 +32,8 @@ public class ChatController {
     }
 
     @PostMapping("/post")
-    public void postChat(@PathVariable String message, User user)
+    public void postChat(@RequestBody Chat chat)
     {
-        Chat chat = new Chat(message, user);
         ChatService.postMessage(chat);
     }
 
