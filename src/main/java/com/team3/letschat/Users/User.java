@@ -18,6 +18,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
     private String password;
+    private String emailaddress;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<UserRole> roles = new ArrayList();
     @OneToMany(fetch = FetchType.LAZY)
