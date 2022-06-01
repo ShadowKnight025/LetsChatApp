@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {Button, Col, Container, Form, Row} from "reactstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
 class Login extends Component {
     constructor(props) {
@@ -19,13 +18,23 @@ class Login extends Component {
                             <h3 className="text-center">Login</h3>
                             <div className="card-body">
                                 <form>
-                                    <div className="form-group">
+                                <div className="form-group">
                                         <label>Email</label>
-                                        <input placeholder='Email' name='email' className='form-control' type="email" />
+                                        <div className='input-group-prepend'>
+                                            <span className="input-group-text">
+                                            <FontAwesomeIcon icon={faEnvelope}/>
+                                            </span>
+                                            <input placeholder='Email' name='email' className='form-control' type="email" />
+                                        </div>
                                     </div>
                                     <div className="form-group">
                                         <label>Password</label>
-                                        <input placeholder='Password' name='password' className='form-control' type="password" />
+                                        <div className='input-group-prepend'>
+                                            <span className="input-group-text">
+                                            <FontAwesomeIcon icon={faLock}/>
+                                            </span>
+                                            <input placeholder='Password' name='password' className='form-control' type="password" />
+                                        </div>
                                     </div>
                                     <button className='btn btn-success'>Login</button>
                                     <button className='btn btn-danger' onClick={this.cancel} style={{marginLeft:"10px"}}>Forgot Password</button>

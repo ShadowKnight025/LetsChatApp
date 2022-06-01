@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import "bootstrap/dist/css/bootstrap.min.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faUser, faLock } from '@fortawesome/free-solid-svg-icons'
 
 class Signup extends Component {
     constructor(props) {
@@ -17,23 +18,41 @@ class Signup extends Component {
                             <h3 className="text-center">Sign Up</h3>
                             <div className="card-body">
                                 <form>
-                                    <div className="form-group">
+                                    <div className="form-group" >
                                         <label>First Name</label>
-                                        <input placeholder='First Name' name='firstName' className='form-control' type="text" />
-                                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-                                        <FontAwesomeIcon icon={faUser}/>
+                                        <div className='input-group-prepend'>
+                                            <span className="input-group-text">
+                                            <FontAwesomeIcon icon={faUser}/>
+                                            </span>
+                                            <input placeholder="Username" name='firstName' className='form-control' type="text" ></input>
+                                        </div> 
                                     </div>
                                     <div className="form-group">
                                         <label>Last Name</label>
-                                        <input placeholder='Last Name' name='lastName' className='form-control' type="text" />
+                                        <div className='input-group-prepend'>
+                                            <span className="input-group-text">
+                                            <FontAwesomeIcon icon={faUser}/>
+                                            </span>
+                                            <input placeholder='Last Name' name='lastName' className='form-control' type="text"  />
+                                        </div> 
                                     </div>
                                     <div className="form-group">
                                         <label>Email</label>
-                                        <input placeholder='Email' name='email' className='form-control' type="email" />
+                                        <div className='input-group-prepend'>
+                                            <span className="input-group-text">
+                                            <FontAwesomeIcon icon={faEnvelope}/>
+                                            </span>
+                                            <input placeholder='Email' name='email' className='form-control' type="email" />
+                                        </div>
                                     </div>
                                     <div className="form-group">
                                         <label>Password</label>
-                                        <input placeholder='Password' name='password' className='form-control' type="password" />
+                                        <div className='input-group-prepend'>
+                                            <span className="input-group-text">
+                                            <FontAwesomeIcon icon={faLock}/>
+                                            </span>
+                                            <input placeholder='Password' name='password' className='form-control' type="password" />
+                                        </div>
                                     </div>
                                     <button className='btn btn-success'>Sign Up</button>
                                     <br />
