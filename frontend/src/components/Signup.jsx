@@ -24,7 +24,7 @@ class Signup extends Component {
                                             <span className="input-group-text">
                                             <FontAwesomeIcon icon={faUser}/>
                                             </span>
-                                            <input placeholder="Username" name='firstName' className='form-control' type="text" ></input>
+                                            <input placeholder="First Name" name='firstName' className='form-control' type="text" ></input>
                                         </div> 
                                     </div>
                                     <div className="form-group">

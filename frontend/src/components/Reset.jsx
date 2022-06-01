@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
-class Login extends Component {
+class Reset extends Component {
     constructor(props) {
         super(props);
         
@@ -15,7 +14,7 @@ class Login extends Component {
                 <div className="container">
                     <div className="row">
                         <div className='card col-md-6 offset-md-3 offset-md-3'>
-                            <h3 className="text-center">Login</h3>
+                            <h3 className="text-center">Reset Password</h3>
                             <div className="card-body">
                                 <form>
                                 <div className="form-group">
@@ -27,18 +26,9 @@ class Login extends Component {
                                             <input placeholder='Email' name='email' className='form-control' type="email" />
                                         </div>
                                     </div>
-                                    <div className="form-group">
-                                        <label>Password</label>
-                                        <div className='input-group-prepend'>
-                                            <span className="input-group-text">
-                                            <FontAwesomeIcon icon={faLock}/>
-                                            </span>
-                                            <input placeholder='Password' name='password' className='form-control' type="password" />
-                                        </div>
-                                    </div>
-                                    <button className='btn btn-success'>Login</button>
+                                    <button className='btn btn-success'>Send Link</button>
                                     <br />
-                                    <a href="reset">Forgot Password</a> <br />
+                                    <a href="login">Login</a> <br />
                                     <a href="signup">Create new account</a>
                                 </form>
                             </div>
@@ -51,4 +41,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Reset;
