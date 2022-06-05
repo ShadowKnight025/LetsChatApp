@@ -1,0 +1,32 @@
+type Query{
+    users(username: String): [User]
+}
+
+type Mutation{
+    addUser(
+        username: String,
+        password: String,
+        emailaddress: String
+    ): User
+}
+
+type User{
+    username: String
+    password: String
+    id: ID
+    roles: [UserRole]
+    emailaddress: String
+    chats: [Chat]
+}
+
+type UserRole{
+    id: ID
+    roleType: String
+}
+
+type Chat{
+    id: ID
+    message: String
+}
+
+

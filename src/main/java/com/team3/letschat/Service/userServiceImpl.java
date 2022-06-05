@@ -6,19 +6,33 @@ import com.team3.letschat.Users.User;
 import com.team3.letschat.Users.UserRole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service @RequiredArgsConstructor @Transactional @Slf4j
-public class userServiceImpl implements userService {
+public class userServiceImpl implements userService, UserDetailsService {
+
+    @Autowired
     private UserDAO userdao;
+    @Autowired
     private RoleDAO roledao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User SaveUser(User user)
     {
         log.info("Saving {} to the database", user.getUsername());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return this.userdao.save(user);
     }
 
@@ -33,8 +47,8 @@ public class userServiceImpl implements userService {
     public void addRoleToUser(String username, String roleType)
     {
         log.info("Adding role {} to user {}", roleType, username);
-        User user = userdao.findByUsername(username);
-        UserRole role = roledao.findByRoleType(roleType);
+        User user = this.userdao.findByUsername(username);
+        UserRole role = this.roledao.findByRoleType(roleType);
         user.getRoles().add(role);
     }
 
@@ -48,7 +62,7 @@ public class userServiceImpl implements userService {
     public User EditUserInfo(String username)
     {
         log.info("Updating info for {} in database", username);
-        User user = userdao.findByUsername(username);
+        User user = this.userdao.findByUsername(username);
         return user;
     }
 
@@ -63,7 +77,7 @@ public class userServiceImpl implements userService {
     @Override
     public UserRole editRole(String roleType)
     {
-        UserRole role = roledao.findByRoleType(roleType);
+        UserRole role = this.roledao.findByRoleType(roleType);
         return role;
     }
 
@@ -71,13 +85,30 @@ public class userServiceImpl implements userService {
     public void removeRole(String roleType)
     {
         log.info("Deleting role {} from database", roleType);
-        UserRole role = roledao.findByRoleType(roleType);
-        roledao.deleteById(role.getId());
+        UserRole role = this.roledao.findByRoleType(roleType);
+        this.roledao.deleteById(role.getId());
     }
 
     @Override
     public List<User> getAllUsers()
     {
-        return userdao.findAll();
+        return this.userdao.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userdao.findByUsername(username);
+        if(user != null)
+        {
+            log.error("user does not exist");
+            throw new UsernameNotFoundException("User not found / does not exist");
+        }
+        else
+        {
+          log.info("User found: {}", username);
+        }
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleType())));
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 }
