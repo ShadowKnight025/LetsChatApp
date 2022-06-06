@@ -2,14 +2,40 @@ import React, { Component } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import { auth, db } from '../firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, updateDoc} from 'firebase/firestore';
+import {useNavigate} from 'react-router-dom'
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        
-    }
+
+const Login = () => {
+    const [data, setData] = useState({
+        email: '',
+        password: '', 
+        error: null,
+        loading: false,
+    });
+
+    const navigate = useNavigate(); 
+    const {email, password, error, loading} = data;
+
+    const handleChange = e => {
+        setData({...data, [e.target.name]: e.target.value});
+    };
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        setData({...data, error: null, loading: true});
+        if (!email || !password){
+            setData({...data, error: "Please fill out all input fields. "})
+        }
+        try {
+            //method for connecting to back end
+        } catch (err) {
+            setData({...data, error: err.message, loading: false})
+        } 
+    };
     
-    render() {
         return (
             <div>
                 <div className="container">
@@ -49,6 +75,6 @@ class Login extends Component {
             </div>
         );
     }
-}
+
 
 export default Login;
