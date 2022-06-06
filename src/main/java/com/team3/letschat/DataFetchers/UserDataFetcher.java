@@ -1,21 +1,17 @@
 package com.team3.letschat.DataFetchers;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.netflix.graphql.dgs.*;
+import com.netflix.graphql.dgs.DgsMutation;
+import com.netflix.graphql.dgs.DgsQuery;
 import com.team3.letschat.Service.userService;
 import com.team3.letschat.Users.User;
 import graphql.schema.DataFetchingEnvironment;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.core.OAuth2Token;
-
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
-@DgsComponent
+@DgsComponent @Slf4j
 public class UserDataFetcher {
 
     @Autowired
@@ -42,6 +38,5 @@ public class UserDataFetcher {
         String emailaddress = dfe.getArgument("emailaddress");
         return UserService.SaveUser(new User(username, password, emailaddress, new ArrayList<>(), new ArrayList<>()));
     }
-
 
 }

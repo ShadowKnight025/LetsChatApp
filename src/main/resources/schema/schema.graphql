@@ -8,6 +8,8 @@ type Mutation{
         password: String,
         emailaddress: String
     ): User
+
+    refreshToken: accessToken
 }
 
 type User{
@@ -29,4 +31,10 @@ type Chat{
     message: String
 }
 
+type refreshToken{
+    token: String
+}
 
+type accessToken{
+    token: String
+}
