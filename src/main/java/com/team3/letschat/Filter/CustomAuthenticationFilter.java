@@ -40,33 +40,31 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User user = (User)authResult.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("D3M0@p!K3Y4APPDEV");
-        String access_token = generateAuthToken(algorithm.toString(), user.getUsername(), request, user);
-        String refresh_token = generateRefreshToken(algorithm.toString(), user.getUsername(), request, user);
+        Algorithm algorithm = Algorithm.HMAC256("D3M0@p!K3Y4APPDEV".getBytes());
+        String access_token = generateAuthToken(algorithm, user.getUsername(), request, user);
+        String refresh_token = generateRefreshToken(algorithm, user.getUsername(), request, user);
         response.setHeader("access_token", access_token);
         response.setHeader("refresh_token", refresh_token);
     }
 
-    public String generateAuthToken(String key, String username, HttpServletRequest request, User user)
+    public String generateAuthToken(Algorithm key, String username, HttpServletRequest request, User user)
     {
-        Algorithm algorithm = Algorithm.HMAC256(key);
         String access_token = JWT.create()
                 .withSubject(username)
                 .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .sign(algorithm);
+                .sign(key);
         return access_token;
     }
 
-    public String generateRefreshToken(String key, String username, HttpServletRequest request, User user)
+    public String generateRefreshToken(Algorithm key, String username, HttpServletRequest request, User user)
     {
-        Algorithm algorithm = Algorithm.HMAC256(key);
         String refresh_token = JWT.create()
                 .withSubject(username)
                 .withExpiresAt(new Date(System.currentTimeMillis() +  3 * 24 * 60 * 1000))
                 .withIssuer(request.getRequestURL().toString())
-                .sign(algorithm);
+                .sign(key);
         return refresh_token;
     }
 

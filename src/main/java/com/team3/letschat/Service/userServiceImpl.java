@@ -97,8 +97,8 @@ public class userServiceImpl implements userService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userdao.findByUsername(username);
-        if(user != null)
+        User user = this.userdao.findByUsername(username);
+        if(user == null)
         {
             log.error("user does not exist");
             throw new UsernameNotFoundException("User not found / does not exist");
@@ -109,6 +109,6 @@ public class userServiceImpl implements userService, UserDetailsService {
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleType())));
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), passwordEncoder.encode(user.getPassword()), authorities);
     }
 }
