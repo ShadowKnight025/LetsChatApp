@@ -11,9 +11,9 @@ public interface userService {
     UserRole SaveRole(UserRole role);
     void addRoleToUser(String username, String roleType);
     User getUser(String username);
-    User EditUserInfo(String username);
+    User EditUserInfo(String username, User user);
     void removeUser(String username);
-    UserRole editRole(String roleType);
+    UserRole editRole(String roleType, UserRole role);
     void removeRole(String roleType);
     List<User>getAllUsers();
 }
