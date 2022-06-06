@@ -59,10 +59,13 @@ public class userServiceImpl implements userService, UserDetailsService {
     }
 
     @Override
-    public User EditUserInfo(String username)
+    public User EditUserInfo(String username, User updated_user)
     {
         log.info("Updating info for {} in database", username);
         User user = this.userdao.findByUsername(username);
+        user.setUsername(updated_user.getUsername());
+        user.setPassword(updated_user.getPassword());
+        user.setEmailaddress(updated_user.getEmailaddress());
         return user;
     }
 
@@ -75,9 +78,10 @@ public class userServiceImpl implements userService, UserDetailsService {
     }
 
     @Override
-    public UserRole editRole(String roleType)
+    public UserRole editRole(String roleType, UserRole newRole)
     {
         UserRole role = this.roledao.findByRoleType(roleType);
+        role.setRoleType(newRole.getRoleType());
         return role;
     }
 

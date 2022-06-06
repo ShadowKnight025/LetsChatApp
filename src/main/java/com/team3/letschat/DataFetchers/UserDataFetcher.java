@@ -39,4 +39,19 @@ public class UserDataFetcher {
         return UserService.SaveUser(new User(username, password, emailaddress, new ArrayList<>(), new ArrayList<>()));
     }
 
+    @DgsMutation
+    public void editUser(DataFetchingEnvironment dfe)
+    {
+        User oldUserData = UserService.getUser(dfe.getArgument("oldUsername"));
+        String username = dfe.getArgument("username");
+        String password = dfe.getArgument("password");
+        String emailaddress = dfe.getArgument("emailaddress");
+        UserService.EditUserInfo(oldUserData.getUsername(), new User(username, password, emailaddress, new ArrayList<>(), new ArrayList<>()));
+    }
+
+    @DgsMutation
+    public void deleteUser(DataFetchingEnvironment dfe)
+    {
+        UserService.removeUser(dfe.getArgument("username"));
+    }
 }

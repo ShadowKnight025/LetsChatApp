@@ -9,7 +9,34 @@ type Mutation{
         emailaddress: String
     ): User
 
-    refreshToken: accessToken
+    editUser(
+        oldUsername: String,
+        username: String,
+        password: String,
+        emailaddress: String
+    ): User
+
+    deleteUser(
+        username: String
+    ): User
+
+    addRole(
+        roleType: String
+    ): UserRole
+
+    editRole(
+        updatedRole: String
+        oldRole: String
+    ): UserRole
+
+    deleteRole(
+        roleType: String
+    ): UserRole
+
+    addRoletoUser(
+        username: String
+        roleType: String
+    ): User
 }
 
 type User{
@@ -29,12 +56,4 @@ type UserRole{
 type Chat{
     id: ID
     message: String
-}
-
-type refreshToken{
-    token: String
-}
-
-type accessToken{
-    token: String
 }
