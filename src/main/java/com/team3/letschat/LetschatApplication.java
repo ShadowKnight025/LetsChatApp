@@ -19,4 +19,5 @@ public class LetschatApplication {
 	{
 		return new BCryptPasswordEncoder();
 	}
+
 }
