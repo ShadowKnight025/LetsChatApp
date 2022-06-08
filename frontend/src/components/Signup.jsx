@@ -2,6 +2,19 @@ import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faUser, faLock } from '@fortawesome/free-solid-svg-icons'
+import { gql, useMutation } from '@apollo/client';
+
+const registerUser = gql`
+  mutation addUserMutation(
+      $username: String!
+      $password: String!
+      $emailaddress: String!
+  ){
+      addUser(username: $username, password: $password, emailaddress: $emailaddress){
+          username
+      }
+  }
+`
 
 const Signup = () => {
     const [data, setData] = useState({
@@ -16,6 +29,14 @@ const Signup = () => {
     })
     const {firstName, lastName, email, userName, password, confirmPassword, error, loading} = data;
 
+    const [adduser] = useMutation(registerUser, {
+        variables:{
+            username: data.userName, 
+            password: data.password, 
+            emailaddress: data.email
+        }
+       }); 
+
     const handleChange = e => {
         setData({...data, [e.target.name]: e.target.value});
     };
@@ -29,10 +50,13 @@ const Signup = () => {
         else if(password !== confirmPassword){
             setData({...data, error: "Passwords do not match"})
         }
-        try {
-            // function for registering user. 
-        } catch (err) {
-            // error function. 
+        try 
+        {
+            adduser();
+        } 
+        catch (err) 
+        {
+            //add error handling
         }
     }
         return (
@@ -79,8 +103,8 @@ const Signup = () => {
                                             <span className="input-group-text">
                                             <FontAwesomeIcon icon={faUser}/>
                                             </span>
-                                            <input placeholder='Email' name='email' className='form-control' type="email"
-                                            value={email} onChange={handleChange} />
+                                            <input placeholder='Username' name='userName' className='form-control' type="text"
+                                            value={userName} onChange={handleChange} />
                                         </div>
                                     </div>
                                     <div className="form-group">
@@ -104,7 +128,7 @@ const Signup = () => {
                                         </div>
                                     </div>
                                     {error ? <p className='error'>{error}</p>: null}
-                                    <button className='btn btn-success'>
+                                    <button className='btn btn-success' type='Submit'>
                                         {loading ? 'Creating User...': 'Sign Up'}
                                     </button>
                                     <br />

@@ -2,9 +2,7 @@ package com.team3.letschat.DataFetchers;
 
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
-import com.netflix.graphql.dgs.DgsQuery;
 import com.team3.letschat.Service.userService;
-import com.team3.letschat.Users.User;
 import com.team3.letschat.Users.UserRole;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;

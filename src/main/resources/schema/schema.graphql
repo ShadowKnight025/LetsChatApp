@@ -1,5 +1,6 @@
 type Query{
     users(username: String): [User]
+    servers(servername: String): [ChatServer]
 }
 
 type Mutation{
@@ -45,7 +46,7 @@ type User{
     id: ID
     roles: [UserRole]
     emailaddress: String
-    chats: [Chat]
+    Servers: [ChatServer]
 }
 
 type UserRole{
@@ -53,7 +54,23 @@ type UserRole{
     roleType: String
 }
 
+type ChatServer{
+    id: ID
+    ServerName: String
+    Owner: User
+    userList: [User]
+    Chatrooms: [ChatRoom]
+}
+
+type ChatRoom{
+    id: ID
+    roomName: String
+    chats: [Chat]
+}
+
 type Chat{
     id: ID
+    sender: User
     message: String
+    Date: String
 }

@@ -42,8 +42,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login", "/_refresh/**").permitAll();
         http.authorizeRequests().antMatchers(GET, "**/graphql").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(POST, "**/graphql").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers(GET, "/graphql").hasAnyAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers(GET, "/graphql").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST, "/graphql").hasAnyAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers(POST, "/graphql/mutation/addUser").permitAll();
         http.authorizeRequests().antMatchers(GET, "**/graphiql").hasAnyAuthority("ROLE_DEVELOPER");
         http.authorizeRequests().antMatchers(POST, "**/graphiql").hasAnyAuthority("ROLE_DEVELOPER");
         http.authorizeRequests().anyRequest().authenticated();
