@@ -1,8 +1,32 @@
-import React, { Component } from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import {React, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { InputAdornment } from '@material-ui/core';
+
+function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'All rights reserved to Lets Chat '}
+        {' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
+
+const theme = createTheme();
 
 const Login = () => {
     const [data, setData] = useState({
@@ -13,6 +37,7 @@ const Login = () => {
     });
 
     const navigate = useNavigate(); 
+
     const {email, password, error, loading} = data;
 
     const handleChange = e => {
@@ -33,44 +58,97 @@ const Login = () => {
     };
     
         return (
-            <div>
-                <div className="container">
-                    <div className="row">
-                        <div className='card col-md-6 offset-md-3 offset-md-3'>
-                            <h3 className="text-center">Login</h3>
-                            <div className="card-body">
-                                <form>
-                                <div className="form-group">
-                                        <label>Email</label>
-                                        <div className='input-group-prepend'>
-                                            <span className="input-group-text">
-                                            <FontAwesomeIcon icon={faEnvelope}/>
-                                            </span>
-                                            <input placeholder='Email' name='email' className='form-control' type="email" />
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Password</label>
-                                        <div className='input-group-prepend'>
-                                            <span className="input-group-text">
-                                            <FontAwesomeIcon icon={faLock}/>
-                                            </span>
-                                            <input placeholder='Password' name='password' className='form-control' type="password" />
-                                        </div>
-                                    </div>
-                                    <button className='btn btn-success'>Login</button>
-                                    <br />
-                                    <a href="reset">Forgot Password</a> <br />
-                                    <a href="signup">Create new account</a>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
+           <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <Box
+                sx={{
+                  marginTop: 8,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                <Avatar sx={{ m: 1, bgcolor: '#b71c1c' }}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Login
+                </Typography>
+      
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email"
+                        name="email"
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <EmailOutlinedIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="password"
+                        label="Password"
+                        name="password"
+                        type="password"
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <VisibilityOutlinedIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
+                  {error ? <p className='error'>{error}</p>: null}
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    disabled={loading}
+                    sx={{ mt: 2, mb: 2, bgcolor: '#b71c1c',
+                    '&:hover': {
+                      backgroundColor: '#E75A22',
+                      color: 'black',
+                      boxShadow: 3,
+                  },
+                  }}
+                  >
+                    {loading ? 'Logging In...': 'Login'}
+                  </Button>
+                  <Grid container justifyContent="flex-end">
+                    <Grid item>
+                      <Link href="/reset" variant="body2" align='right'>
+                        Forgot Password?
+                      </Link>
+                    </Grid>
+                  </Grid>
+                  <Grid container justifyContent="flex-end">
+                    <Grid item>
+                      <Link href="/signup" variant="body2" align='right'>
+                        Create new Account
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Box>
+              <Copyright sx={{ mt: 5 }} />
+            </Container>
+          </ThemeProvider>
         );
-    }
+      }
 
 
 export default Login;

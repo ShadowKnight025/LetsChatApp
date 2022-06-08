@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.png';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import CssBaseline from '@mui/material/CssBaseline';
 
 class Header extends Component {
     constructor(props) {
@@ -10,16 +14,18 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <header>
-                <nav className='navbar navbar-expand-md navbar-dark bg-dark'>
-                        <div>
-                            <a href="login" className='navbar-brand'>Lets Chat</a>
-                        </div>
-                        <div>
-                            <img src={logo} width="35" />
-                        </div>
-                    </nav>
-                </header>
+                <React.Fragment>
+            <CssBaseline />
+            <AppBar sx={{ mt: 0, mb: 2, bgcolor: '#b71c1c',}}>
+              <Toolbar>
+                <Typography variant="h6" component="div"> 
+                    <img className='logo' src={logo} width="50" />
+                    Lets Chat
+                </Typography>
+              </Toolbar>
+            </AppBar>
+          <Toolbar />
+        </React.Fragment>
             </div>
         );
     }

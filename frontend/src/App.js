@@ -18,7 +18,6 @@ function App() {
               <Route path="/reset" element={<Reset/>}></Route>
             </Routes>
           </div>
-          <Footer/>
   </div>
   );
 }
