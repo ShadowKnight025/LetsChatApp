@@ -38,6 +38,11 @@ type Mutation{
         username: String
         roleType: String
     ): User
+
+    createNewChatServer(
+        ServerName: String
+        OwnerName: String
+    ): ChatServer
 }
 
 type User{
@@ -57,7 +62,7 @@ type UserRole{
 type ChatServer{
     id: ID
     ServerName: String
-    Owner: User
+    Owner: String
     userList: [User]
     Chatrooms: [ChatRoom]
 }

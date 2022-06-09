@@ -22,12 +22,15 @@ public class chatServerServiceImpl implements chatServerService{
     private chatServerDAO chatserverdao;
     @Autowired
     private userService userservice;
-    @Autowired
-    private chatRoomService chatroomservice;
 
     @Override
-    public ChatServer createNewServer(ChatServer chatServer) {
-        return this.chatserverdao.save(chatServer);
+    public void createNewServer(ChatServer chatServer)
+    {
+        if (chatServer.getUserList() != null) {
+            chatServer.getUserList().add(this.userservice.getUser(chatServer.getOwner()));
+        }
+        log.info("Saved to DB {}", chatServer.getServerName());
+        this.chatserverdao.save(chatServer);
     }
 
     @Override
@@ -41,9 +44,9 @@ public class chatServerServiceImpl implements chatServerService{
         updated.setServerName(newServerName);
     }
 
-    public void changeServerOwner(String serverName, User newOwner)
+    public void changeServerOwner(String serverName, String newOwner)
     {
-        if(newOwner != null && userservice.getUser(newOwner.getUsername()) != null)
+        if(newOwner != null && this.userservice.getUser(newOwner) != null)
         {
             ChatServer server = this.chatserverdao.findByServerName(serverName);
             server.setOwner(newOwner);
@@ -74,17 +77,19 @@ public class chatServerServiceImpl implements chatServerService{
     public void addUser(String serverName, String username)
     {
         ChatServer server = this.chatserverdao.findByServerName(serverName);
-        server.getUserList().add(userservice.getUser(username));
+        server.getUserList().add(this.userservice.getUser(username));
     }
 
     @Override
     public void removeUser(String serverName, String username)
     {
         ChatServer server = this.chatserverdao.findByServerName(serverName);
-        server.getUserList().remove(userservice.getUser(username));
+        server.getUserList().remove(this.userservice.getUser(username));
     }
 
-    @Override
+
+    //Creating & Deleting Chatrooms will be handled by the ChatRoom Service.
+  /* @Override
     public void addChatRoom(String serverName, String chatRoomName)
     {
         ChatServer server = this.chatserverdao.findByServerName(serverName);
@@ -96,7 +101,7 @@ public class chatServerServiceImpl implements chatServerService{
     {
         ChatServer server = this.chatserverdao.findByServerName(serverName);
         server.getChatRooms().remove(chatroomservice.getChatRoom(chatRoomName));
-    }
+    } */
 
     @Override
     public List<User> getUserList(String serverName)

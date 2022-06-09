@@ -20,4 +20,7 @@ public class LetschatApplication {
 		return new BCryptPasswordEncoder();
 	}
 
+
+	//ToDO: Create CommandLine Run to run Chat Server Dao save operation for new Chat server to debug Server
+	// or debug the Graphql API I guess.
 }
