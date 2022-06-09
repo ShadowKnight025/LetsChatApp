@@ -3,6 +3,7 @@ package com.team3.letschat.Service;
 import com.team3.letschat.Dao.chatRoomDAO;
 import com.team3.letschat.Entity.Chat;
 import com.team3.letschat.Entity.ChatRoom;
+import com.team3.letschat.Entity.ChatServer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,17 @@ public class chatRoomServiceImpl implements chatRoomService {
     private chatRoomDAO chatroomdao;
 
     @Autowired
+    private chatServerService chatserverservice;
+
+    @Autowired
     private chatService chatservice;
 
     @Override
-    public ChatRoom createNewChatroom(ChatRoom chatRoom) {
+    public ChatRoom createNewChatroom(String ServerName, ChatRoom chatRoom) {
+        ChatServer server = this.chatserverservice.getChatServer(ServerName);
+        if (server.getChatRooms() != null) {
+            server.getChatRooms().add(chatRoom);
+        }
         return this.chatroomdao.save(chatRoom);
     }
 
@@ -39,8 +47,12 @@ public class chatRoomServiceImpl implements chatRoomService {
     }
 
     @Override
-    public void deleteChatRoom(String roomName) {
+    public void deleteChatRoom(String serverName, String roomName) {
         ChatRoom delete = this.chatroomdao.findByRoomName(roomName);
+        ChatServer server = chatserverservice.getChatServer(serverName);
+        if (server.getChatRooms() != null) {
+            server.getChatRooms().remove(this.chatroomdao.findByRoomName(roomName));
+        }
         this.chatroomdao.deleteById(delete.getId());
     }
 
