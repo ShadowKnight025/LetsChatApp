@@ -85,7 +85,7 @@ const Signup = () => {
             //add error handling
         }
     };
-        return (
+        return(
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
@@ -201,9 +201,8 @@ const Signup = () => {
                     </Box>
                     </Box>
                 <Copyright sx={{ mt: 5 }} />
-            </Container>
+              </Container>
             </ThemeProvider>
-        );
-    }
-
+            );
+        }
 export default Signup;

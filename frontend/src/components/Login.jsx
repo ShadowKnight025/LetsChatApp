@@ -1,4 +1,7 @@
-import {React, useState } from 'react';
+import React, { useState } from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
+//import { FontAwesomeIcon } from '@fontawesome/fortawesome'
+//import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import {useNavigate} from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';

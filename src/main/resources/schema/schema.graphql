@@ -1,0 +1,81 @@
+type Query{
+    users(username: String): [User]
+    servers(servername: String): [ChatServer]
+}
+
+type Mutation{
+    addUser(
+        username: String,
+        password: String,
+        emailaddress: String
+    ): User
+
+    editUser(
+        oldUsername: String,
+        username: String,
+        password: String,
+        emailaddress: String
+    ): User
+
+    deleteUser(
+        username: String
+    ): User
+
+    addRole(
+        roleType: String
+    ): UserRole
+
+    editRole(
+        updatedRole: String
+        oldRole: String
+    ): UserRole
+
+    deleteRole(
+        roleType: String
+    ): UserRole
+
+    addRoletoUser(
+        username: String
+        roleType: String
+    ): User
+
+    createNewChatServer(
+        ServerName: String
+        OwnerName: String
+    ): ChatServer
+}
+
+type User{
+    username: String
+    password: String
+    id: ID
+    roles: [UserRole]
+    emailaddress: String
+    Servers: [ChatServer]
+}
+
+type UserRole{
+    id: ID
+    roleType: String
+}
+
+type ChatServer{
+    id: ID
+    ServerName: String
+    Owner: String
+    userList: [User]
+    Chatrooms: [ChatRoom]
+}
+
+type ChatRoom{
+    id: ID
+    roomName: String
+    chats: [Chat]
+}
+
+type Chat{
+    id: ID
+    sender: User
+    message: String
+    Date: String
+}
