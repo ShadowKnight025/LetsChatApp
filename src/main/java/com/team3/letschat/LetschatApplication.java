@@ -20,7 +20,6 @@ public class LetschatApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-
-	//ToDO: Create CommandLine Run to run Chat Server Dao save operation for new Chat server to debug Server
-	// or debug the Graphql API I guess.
+	//TODO: Fix CORS with work around or Implement CORS filter / Configuration for Graphql, Finish ChatServer and Chatroom DataFetchers
+	// Create APP main page & user profile page using Material UI on FrontEnd.
 }

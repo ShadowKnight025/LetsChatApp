@@ -44,4 +44,6 @@ public class ChatServerDataFetcher {
         String OwnerName = dfe.getArgument("OwnerName");
         this.chatserverservice.createNewServer(new ChatServer(ServerName, OwnerName, new ArrayList<>(), new ArrayList<>()));
     }
+
+
 }
