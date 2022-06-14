@@ -1,5 +1,4 @@
-# LetsChatApp
-Project App for GenSpark
+# LetsChatApp ( Project App for GenSpark )
 
 Simple Chat App
 ________________
