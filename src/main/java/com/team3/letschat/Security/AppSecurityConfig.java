@@ -13,8 +13,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static org.springframework.http.HttpMethod.*;
+import java.util.Arrays;
+
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 
@@ -34,19 +39,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //TODO: uncomment when implementing custom login page, set FilterProcess to custom Login path
-        //CustomAuthenticationFilter authenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
-        //authenticationFilter.setFilterProcessesUrl("/login");
+        CustomAuthenticationFilter authenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        authenticationFilter.setFilterProcessesUrl("/login");
         http.csrf().disable();
+        http.cors();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/login", "/_refresh/**").permitAll();
-        http.authorizeRequests().antMatchers(GET, "**/graphql").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers(POST, "**/graphql").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers(GET, "/graphql").hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers(POST, "/graphql").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers(POST, "/graphql/mutation/addUser").permitAll();
-        http.authorizeRequests().antMatchers(GET, "**/graphiql").hasAnyAuthority("ROLE_DEVELOPER");
-        http.authorizeRequests().antMatchers(POST, "**/graphiql").hasAnyAuthority("ROLE_DEVELOPER");
+        http.authorizeRequests().antMatchers("/login", "/_refresh/**", "/v1/api").permitAll();
+        http.authorizeRequests().requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -57,5 +56,17 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception
     {
         return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/v1/api", configuration);
+        source.registerCorsConfiguration("v1/api/**", configuration);
+        return source;
     }
 }

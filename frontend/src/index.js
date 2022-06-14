@@ -15,14 +15,14 @@ import {
 } from "@apollo/client";
 
 const apolloClient = new ApolloClient({
-  uri: 'http://localhost:8080/graphql',
+  uri: '/v1/api',
   cache: new InMemoryCache
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="letschat.local">
     <ApolloProvider client={apolloClient}>
       <App />
     </ApolloProvider>

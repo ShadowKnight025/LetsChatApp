@@ -29,9 +29,7 @@ public class chatRoomServiceImpl implements chatRoomService {
     @Override
     public ChatRoom createNewChatroom(String ServerName, ChatRoom chatRoom) {
         ChatServer server = this.chatserverservice.getChatServer(ServerName);
-        if (server.getChatRooms() != null) {
-            server.getChatRooms().add(chatRoom);
-        }
+        server.getChatRooms().add(chatRoom);
         return this.chatroomdao.save(chatRoom);
     }
 

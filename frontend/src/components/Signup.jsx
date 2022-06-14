@@ -15,7 +15,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { InputAdornment } from '@material-ui/core';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
+
 
 function Copyright(props) {
     return (
@@ -31,7 +32,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 const registerUser = gql`
-  mutation addUserMutation(
+  mutation addUser(
       $username: String!
       $password: String!
       $emailaddress: String!
@@ -44,43 +45,50 @@ const registerUser = gql`
 
 const Signup = () => {
     const [data, setData] = useState({
-      email: '',
+    /*  email: '',
       userName: '',
-      password: '', 
-      confirmPassword: '',
+      password: '',
+      confirmPassword: '', */
       error: null,
       loading: false,
   });
-  const navigate = useNavigate(); 
 
-  const {email, userName, password, confirmPassword, error, loading} = data;
-  
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const {/*email, userName, password, confirmPassword, */ error, loading} = data;
+
+
     const [adduser] = useMutation(registerUser, {
         variables:{
-            username: data.userName, 
-            password: data.password, 
-            emailaddress: data.email
+          username: username,
+          password: password,
+          emailaddress: email
         }
-       }); 
+       });
 
     const handleChange = e => {
-        setData({...data, [e.target.name]: e.target.value});
+        //setData({...data, [e.target.name]: e.target.value});
     };
 
     const handleSubmit = async e => {
         e.preventDefault();
         setData({...data, error: null, loading: true});
-        if (!userName || !email || !password || !confirmPassword){
+        if (!username || !email || !password || !confirmPassword){
             setData({...data, error: "Please fill out all input fields. "})
         }
-        else if(password !== confirmPassword){
+        else if(password != confirmPassword){
             setData({...data, error: "Passwords do not match"})
         }
-        try 
+        try
         {
             adduser();
-        } 
-        catch (err) 
+        }
+        catch (err)
         {
             //add error handling
         }
@@ -114,6 +122,7 @@ const Signup = () => {
                             label="Email Address"
                             name="email"
                             type="email"
+                            onChange={(e) => setEmail(e.target.value)}
                             InputProps={{
                                 endAdornment: (
                                 <InputAdornment position="end">
@@ -130,6 +139,7 @@ const Signup = () => {
                             id="username"
                             label="Username"
                             name="username"
+                            onChange={(e) => setUsername(e.target.value)}
                             InputProps={{
                                 endAdornment: (
                                 <InputAdornment position="end">
@@ -147,6 +157,7 @@ const Signup = () => {
                             label="Password"
                             name="password"
                             type="password"
+                            onChange={(e) => setPassword(e.target.value)}
                             InputProps={{
                                 endAdornment: (
                                 <InputAdornment position="end">
@@ -165,6 +176,7 @@ const Signup = () => {
                             type="password"
                             id="confirmPassword"
                             autoComplete="new-password"
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             InputProps={{
                                 endAdornment: (
                                 <InputAdornment position="end">
@@ -174,7 +186,7 @@ const Signup = () => {
                             }}
                             />
                         </Grid>
-                        {error ? <p className='error'>{error}</p>: null}  
+                        {error ? <p className='error'>{error}</p>: null}
                         </Grid>
                         <Button
                         type="submit"
@@ -193,7 +205,7 @@ const Signup = () => {
                         </Button>
                         <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Link href="/login" variant="body2">
+                            <Link href="letschat.local/login" variant="body2">
                             Already have an account? Sign in
                             </Link>
                         </Grid>

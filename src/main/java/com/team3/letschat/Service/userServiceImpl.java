@@ -31,9 +31,13 @@ public class userServiceImpl implements userService, UserDetailsService {
     @Override
     public User SaveUser(User user)
     {
-        log.info("Saving {} to the database", user.getUsername());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return this.userdao.save(user);
+        if(userdao.findByUsername(user.getUsername()) != null) {
+            throw new RuntimeException("User already exist!");
+        } else {
+            log.info("Saving {} to the database", user.getUsername());
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return this.userdao.save(user);
+        }
     }
 
     @Override

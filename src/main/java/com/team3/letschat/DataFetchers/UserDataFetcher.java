@@ -8,18 +8,20 @@ import com.team3.letschat.Users.User;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@DgsComponent @Slf4j
+@DgsComponent @Slf4j @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "false")
 public class UserDataFetcher {
 
     @Autowired
     private userService UserService;
 
-    @DgsQuery
+    @DgsQuery @Secured({"ROLE_ADMIN", "ROLE_DEVELOPER"})
     public List<User> users(String username)
     {
         if(username == null)
@@ -32,7 +34,7 @@ public class UserDataFetcher {
         }
     }
 
-    @DgsMutation
+    @DgsMutation @Secured("")
     public User addUser(DataFetchingEnvironment dfe)
     {
         String username = dfe.getArgument("username");
@@ -41,7 +43,7 @@ public class UserDataFetcher {
         return UserService.SaveUser(new User(username, password, emailaddress, new ArrayList<>(), new ArrayList<>()));
     }
 
-    @DgsMutation
+    @DgsMutation @Secured("ROLE_USER")
     public void editUser(DataFetchingEnvironment dfe)
     {
         User oldUserData = UserService.getUser(dfe.getArgument("oldUsername"));
@@ -51,7 +53,7 @@ public class UserDataFetcher {
         UserService.EditUserInfo(oldUserData.getUsername(), new User(username, password, emailaddress, new ArrayList<>(), new ArrayList<>()));
     }
 
-    @DgsMutation
+    @DgsMutation @Secured("ROLE_USER")
     public void deleteUser(DataFetchingEnvironment dfe)
     {
         UserService.removeUser(dfe.getArgument("username"));
