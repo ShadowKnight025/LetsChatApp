@@ -6,6 +6,7 @@ import com.team3.letschat.Service.userService;
 import com.team3.letschat.Users.UserRole;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @DgsComponent
 public class RoleDataFetcher {

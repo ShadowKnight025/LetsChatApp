@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { InputAdornment } from '@material-ui/core';
+import axios from 'axios';
 
 function Copyright(props) {
     return (
@@ -33,33 +34,44 @@ const theme = createTheme();
 
 const Login = () => {
     const [data, setData] = useState({
-        email: '',
-        password: '', 
+        username: '',
+        password: '',
         error: null,
         loading: false,
     });
 
-    const navigate = useNavigate(); 
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-    const {email, password, error, loading} = data;
+    const navigate = useNavigate();
+
+    const {/*username, password,*/ error, loading} = data;
 
     const handleChange = e => {
-        setData({...data, [e.target.name]: e.target.value});
+        //console.log(setData({...data, [e.target.name]: e.target.value}));
+        //console.log(setUsername({username}))
     };
 
     const handleSubmit = async e => {
         e.preventDefault();
         setData({...data, error: null, loading: true});
-        if (!email || !password){
+        if (!username || !password){
             setData({...data, error: "Please fill out all input fields. "})
         }
         try {
-            //method for connecting to back end
-        } catch (err) {
+          const params = new URLSearchParams();
+          params.append('username', username);
+          params.append('password', password);
+
+          axios.post(`/login`, params)
+            .then( res => {
+              console.log(res);
+            })
+          } catch (err) {
             setData({...data, error: err.message, loading: false})
-        } 
-    };
-    
+          }
+        };
+
         return (
            <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
@@ -78,16 +90,17 @@ const Login = () => {
                 <Typography component="h1" variant="h5">
                   Login
                 </Typography>
-      
+
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <TextField
                         required
                         fullWidth
-                        id="email"
-                        label="Email"
-                        name="email"
+                        id="username"
+                        label="Username"
+                        name="username"
+                        onChange={(e) => setUsername(e.target.value)}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">
@@ -105,6 +118,7 @@ const Login = () => {
                         label="Password"
                         name="password"
                         type="password"
+                        onChange={(e) => setPassword(e.target.value)}
                         InputProps={{
                           endAdornment: (
                             <InputAdornment position="end">

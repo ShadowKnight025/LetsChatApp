@@ -1,6 +1,7 @@
 type Query{
     users(username: String): [User]
     servers(servername: String): [ChatServer]
+    getChatroom(roomname: String): ChatRoom
 }
 
 type Mutation{
@@ -43,6 +44,11 @@ type Mutation{
         ServerName: String
         OwnerName: String
     ): ChatServer
+
+    createNewChatRoom(
+        ServerName: String
+        RoomName: String
+    ): ChatRoom
 }
 
 type User{

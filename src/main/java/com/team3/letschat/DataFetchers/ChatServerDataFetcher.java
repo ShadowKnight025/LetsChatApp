@@ -10,6 +10,7 @@ import com.team3.letschat.Service.userService;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,5 @@ public class ChatServerDataFetcher {
         String OwnerName = dfe.getArgument("OwnerName");
         this.chatserverservice.createNewServer(new ChatServer(ServerName, OwnerName, new ArrayList<>(), new ArrayList<>()));
     }
-
 
 }
