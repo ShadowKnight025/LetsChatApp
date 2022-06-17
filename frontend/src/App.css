@@ -1,11 +1,12 @@
 .App {
   text-align: center;
+  background-color: #424242;
 }
 
 .App-logo {
   pointer-events: none;
   text-align: right;
-  width: "200"; 
+  width: "200";
   height: "200";
 }
 

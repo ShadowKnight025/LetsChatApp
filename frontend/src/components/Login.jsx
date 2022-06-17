@@ -66,9 +66,16 @@ const Login = () => {
           axios.post(`/login`, params)
             .then( res => {
               console.log(res);
-            })
+              if(res.status == "200")
+              {
+               navigate("/main");
+             } else {
+               navigate(window.location.reload());
+             }
+            });
           } catch (err) {
             setData({...data, error: err.message, loading: false})
+            navigate(window.location.reload());
           }
         };
 
