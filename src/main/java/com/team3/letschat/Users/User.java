@@ -23,13 +23,18 @@ public class User {
     private Collection<UserRole> roles = new ArrayList();
     @ManyToMany @Nullable
     private Collection<ChatServer> servers = new ArrayList<>();
+    @ManyToMany @Nullable
+    private Collection<User> friendlist = new ArrayList<>();
 
-    public User(String username, String password, String emailaddress, Collection<UserRole> roles, Collection<ChatServer> servers)
+    //TODO: add new collection of Users called Friendlist with a function to add users once a user has accepted - have done by June 26th.
+
+    public User(String username, String password, String emailaddress, Collection<UserRole> roles, Collection<ChatServer> servers, Collection<User> friendlist)
     {
         this.username = username;
         this.password = password;
         this.emailaddress = emailaddress;
         this.roles = roles;
         this.servers = servers;
+        this.friendlist = friendlist;
     }
 }

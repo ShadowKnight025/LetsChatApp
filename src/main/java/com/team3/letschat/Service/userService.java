@@ -16,4 +16,7 @@ public interface userService {
     UserRole editRole(String roleType, UserRole role);
     void removeRole(String roleType);
     List<User>getAllUsers();
+    List<User>getFriendlist(String Username);
+    void addFriendToFriendlist(String Username, String Friend);
+    void removeFriendFromFriendlist(String Username, String Friend);
 }

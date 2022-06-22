@@ -2,6 +2,7 @@ type Query{
     users(username: String): [User]
     servers(servername: String): [ChatServer]
     getChatroom(roomname: String): ChatRoom
+    friendlist(username: String): [User]
 }
 
 type Mutation{
@@ -49,6 +50,16 @@ type Mutation{
         ServerName: String
         RoomName: String
     ): ChatRoom
+
+    addUsertoFriendlist(
+        Username: String
+        FriendName: String
+    ):User
+
+    removeUserFromFriendlist(
+        Username: String
+        FriendName: String
+    ):User
 }
 
 type User{
@@ -58,6 +69,7 @@ type User{
     roles: [UserRole]
     emailaddress: String
     Servers: [ChatServer]
+    friendlist: [User]
 }
 
 type UserRole{
@@ -85,3 +97,4 @@ type Chat{
     message: String
     Date: String
 }
+

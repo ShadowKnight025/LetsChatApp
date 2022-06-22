@@ -87,6 +87,7 @@ const Signup = () => {
         try
         {
             adduser();
+            navigate("/login");
         }
         catch (err)
         {

@@ -154,14 +154,14 @@ const Login = () => {
                   </Button>
                   <Grid container justifyContent="flex-end">
                     <Grid item>
-                      <Link href="/reset" variant="body2" align='right'>
+                      <Link href="reset" variant="body2" align='right'>
                         Forgot Password?
                       </Link>
                     </Grid>
                   </Grid>
                   <Grid container justifyContent="flex-end">
                     <Grid item>
-                      <Link href="/signup" variant="body2" align='right'>
+                      <Link href="Signup" variant="body2" align='right'>
                         Create new Account
                       </Link>
                     </Grid>
