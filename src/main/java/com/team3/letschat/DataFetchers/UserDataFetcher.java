@@ -40,7 +40,7 @@ public class UserDataFetcher {
         String username = dfe.getArgument("username");
         String password = dfe.getArgument("password");
         String emailaddress = dfe.getArgument("emailaddress");
-        return UserService.SaveUser(new User(username, password, emailaddress, new ArrayList<>(), new ArrayList<>()));
+        return UserService.SaveUser(new User(username, password, emailaddress, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
     }
 
     @DgsMutation @Secured("ROLE_USER")
@@ -50,12 +50,39 @@ public class UserDataFetcher {
         String username = dfe.getArgument("username");
         String password = dfe.getArgument("password");
         String emailaddress = dfe.getArgument("emailaddress");
-        UserService.EditUserInfo(oldUserData.getUsername(), new User(username, password, emailaddress, new ArrayList<>(), new ArrayList<>()));
+        UserService.EditUserInfo(oldUserData.getUsername(), new User(username, password, emailaddress, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
     }
 
     @DgsMutation @Secured("ROLE_USER")
     public void deleteUser(DataFetchingEnvironment dfe)
     {
         UserService.removeUser(dfe.getArgument("username"));
+    }
+
+    // Friend List implementation below here
+
+    @DgsQuery @Secured("ROLE_USER")
+    public List<User> friendlist(String username)
+    {
+        if(username == null)
+        {
+            return null;
+        } else {
+            return UserService.getFriendlist(username);
+        }
+    }
+
+    @DgsMutation @Secured("ROLE_USER")
+    public void addUsertoFriendlist(DataFetchingEnvironment dfe)
+    {
+        String user = dfe.getArgument("Username");
+        String friend = dfe.getArgument("FriendName");
+        UserService.addFriendToFriendlist(user, friend);
+    }
+
+    @DgsMutation @Secured("ROLE_USER")
+    public void removeUserFromFriendlist(DataFetchingEnvironment dfe)
+    {
+        UserService.removeFriendFromFriendlist(dfe.getArgument("Username"), dfe.getArgument("FriendName"));
     }
 }
