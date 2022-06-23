@@ -27,10 +27,17 @@ public class chatRoomServiceImpl implements chatRoomService {
     private chatService chatservice;
 
     @Override
-    public ChatRoom createNewChatroom(String ServerName, ChatRoom chatRoom) {
+    public void createNewChatroom(String ServerName, ChatRoom chatRoom)
+    {
         ChatServer server = this.chatserverservice.getChatServer(ServerName);
-        server.getChatRooms().add(chatRoom);
-        return this.chatroomdao.save(chatRoom);
+        //Note: can change exception handling to allow for servers of the same name later
+        if(server.getChatRooms().contains(chatRoom.getRoomName()) || server == null || chatRoom == null)
+        {
+           throw new RuntimeException("error: unable to add chatroom to server. Either chatroom already exist on Server or Server does not exist!");
+        } else {
+            this.chatroomdao.save(chatRoom);
+            server.getChatRooms().add(chatRoom);
+        }
     }
 
     @Override
@@ -55,15 +62,17 @@ public class chatRoomServiceImpl implements chatRoomService {
     }
 
     @Override
-    public void postChat(String roomName, Chat chat) {
-        ChatRoom room = this.chatroomdao.findByRoomName(roomName);
+    public void postChat(Long id, Chat chat) {
+        ChatRoom room = this.chatroomdao.findById(id).get();
+        this.chatservice.postMessage(chat);
         room.getChats().add(chat);
     }
 
     @Override
-    public void deleteChat(String roomName, Chat chat) {
-        ChatRoom room = this.chatroomdao.findByRoomName(roomName);
+    public void deleteChat(Long id, Chat chat) {
+        ChatRoom room = this.chatroomdao.findById(id).get();
         room.getChats().remove(chat);
+        this.chatservice.deleteMessage(chat.getId());
     }
 
     @Override
