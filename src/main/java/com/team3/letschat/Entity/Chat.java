@@ -22,4 +22,11 @@ public class Chat {
     private String message;
     private Date date;
 
+    public Chat(User sender, String message, Date date)
+    {
+        this.sender = sender;
+        this.message = message;
+        this.date = date;
+    }
+
 }

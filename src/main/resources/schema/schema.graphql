@@ -1,7 +1,7 @@
 type Query{
     users(username: String): [User]
-    servers(servername: String): [ChatServer]
-    getChatroom(roomname: String): ChatRoom
+    servers(ServerName: String): [ChatServer]
+    getChatroom(roomName: String): ChatRoom
     friendlist(username: String): [User]
 }
 
@@ -46,10 +46,26 @@ type Mutation{
         OwnerName: String
     ): ChatServer
 
+    addUsertoServer(
+        ServerName: String
+        Username: String
+    ): ChatServer
+
+    removeUserFromServer(
+        ServerName: String
+        Username: String
+    ): ChatServer
+
     createNewChatRoom(
         ServerName: String
         RoomName: String
     ): ChatRoom
+
+    postChat(
+        id: ID
+        sender: String
+        message: String
+    ): Chat
 
     addUsertoFriendlist(
         Username: String
@@ -82,7 +98,7 @@ type ChatServer{
     ServerName: String
     Owner: String
     userList: [User]
-    Chatrooms: [ChatRoom]
+    chatRooms: [ChatRoom]
 }
 
 type ChatRoom{

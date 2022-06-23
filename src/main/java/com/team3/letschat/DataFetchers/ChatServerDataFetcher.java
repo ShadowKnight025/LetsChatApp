@@ -4,6 +4,7 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
+import com.team3.letschat.Entity.ChatRoom;
 import com.team3.letschat.Entity.ChatServer;
 import com.team3.letschat.Service.chatServerService;
 import com.team3.letschat.Service.userService;
@@ -46,4 +47,21 @@ public class ChatServerDataFetcher {
         this.chatserverservice.createNewServer(new ChatServer(ServerName, OwnerName, new ArrayList<>(), new ArrayList<>()));
     }
 
+    @DgsMutation
+    public void addUsertoServer(DataFetchingEnvironment dfe)
+    {
+        String ServerName = dfe.getArgument("ServerName");
+        String Username = dfe.getArgument("Username");
+        this.chatserverservice.addUser(ServerName, Username);
+    }
+
+    @DgsMutation
+    public void removeUserFromServer(DataFetchingEnvironment dfe)
+    {
+        String ServerName = dfe.getArgument("ServerName");
+        String Username = dfe.getArgument("Username");
+        this.chatserverservice.removeUser(ServerName, Username);
+    }
+
+    //Chatroom functionality for Chat Servers below
 }
