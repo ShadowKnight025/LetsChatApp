@@ -16,6 +16,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { InputAdornment } from '@material-ui/core';
 import {useNavigate} from 'react-router-dom';
+import Header from './Header.jsx';
 
 
 function Copyright(props) {
@@ -98,6 +99,7 @@ const Signup = () => {
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
+                    <Header />
                     <Box
                     sx={{
                         marginTop: 8,
@@ -206,8 +208,8 @@ const Signup = () => {
                         </Button>
                         <Grid container justifyContent="flex-end">
                         <Grid item>
-                            <Link href="letschat.local/login" variant="body2">
-                            Already have an account? Sign in
+                            <Link href="/letschat.local/" variant="body2">
+                              Already have an account? Sign in
                             </Link>
                         </Grid>
                         </Grid>

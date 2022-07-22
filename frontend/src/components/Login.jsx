@@ -18,6 +18,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { InputAdornment } from '@material-ui/core';
 import axios from 'axios';
+import Header from './Header.jsx';
 
 function Copyright(props) {
     return (
@@ -83,6 +84,7 @@ const Login = () => {
            <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
               <CssBaseline />
+              <Header />
               <Box
                 sx={{
                   marginTop: 8,
@@ -161,8 +163,8 @@ const Login = () => {
                   </Grid>
                   <Grid container justifyContent="flex-end">
                     <Grid item>
-                      <Link href="Signup" variant="body2" align='right'>
-                        Create new Account
+                      <Link href="signup" variant="body2" align='right'>
+                        Create New Account
                       </Link>
                     </Grid>
                   </Grid>

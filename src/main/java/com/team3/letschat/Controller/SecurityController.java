@@ -31,11 +31,6 @@ public class SecurityController {
     @Autowired
     private userService UserService;
 
-
-    /*@RequestMapping("/login")
-    protected void Login(HttpServletRequest request, HttpServletResponse response)
-    {}*/
-
     @GetMapping("/_refresh")
     protected void validaterefreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException
     {
