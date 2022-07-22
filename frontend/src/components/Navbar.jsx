@@ -71,21 +71,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
-  backgroundColor: '#b71c1c',
+  backgroundColor: '#424242',
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+  boxShadow: 'none',
+  margin: 0,
+  }));
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -117,33 +107,26 @@ const Navbar = () => {
 
  return(
    <ThemeProvider theme={theme} >
-   <Box sx={{ display: 'flex'}}>
-  <AppBar position="fixed" open={open}>
-    <Toolbar>
-      <IconButton
-        color="tertiary"
-        edge="start"
-        sx={{
-          marginRight: 5,
-          ...(open && { display: 'none' }),
-        }}
-      >
-      </IconButton>
-      <Typography variant="h6" component="div">
-          <img className='logo' src={logo} width="50" />
-          Lets Chat
-      </Typography>
-    </Toolbar>
-  </AppBar>
+    <Box sx={{ display: 'flex'}}>
+     <AppBar position="fixed" open={open} sx={{minHeight: 23}}>
+        <Typography
+          variant="p"
+          component="div"
+          sx={{
+                minWidth: 2,
+                mt: 0.5,
+                mb: 0.5,
+                px: 2.5,
+                justifyContent: 'center',
+          }}
+          color="#b5b5b5"
+          >
+             Lets Chat
+         </Typography>
+     </AppBar>
   <Drawer variant="permanent">
-    <DrawerHeader>
-      <IconButton onClick={handleDrawerClose}>
-        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-      </IconButton>
-    </DrawerHeader>
-    <Divider />
-    <List sx={{mr: 0}}>
-      {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+    <List sx={{mr: 0, mt: 3}}>
+      {['Inbox'].map((text, index) => (
         <ListItem key={text} disablePadding sx={{ display: 'block' }}>
           <ListItemButton
             sx={{

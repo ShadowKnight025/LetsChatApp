@@ -34,12 +34,14 @@ public class chatServerServiceImpl implements chatServerService{
     }
 
     @Override
-    public ChatServer getChatServer(String serverName) {
+    public ChatServer getChatServer(String serverName)
+    {
         return this.chatserverdao.findByServerName(serverName);
     }
 
     @Override
-    public void editChatServer(String serverName, String newServerName) {
+    public void editChatServer(String serverName, String newServerName)
+    {
         ChatServer updated = this.chatserverdao.findByServerName(serverName);
         updated.setServerName(newServerName);
     }
@@ -73,35 +75,23 @@ public class chatServerServiceImpl implements chatServerService{
         return server.getChatRooms().stream().toList();
     }
 
+    //Todo: add exception handling and request validation to addUser and removeUser
+
     @Override
     public void addUser(String serverName, String username)
     {
         ChatServer server = this.chatserverdao.findByServerName(serverName);
         server.getUserList().add(this.userservice.getUser(username));
+        this.userservice.getUser(username).getServers().add(server);
     }
 
     @Override
     public void removeUser(String serverName, String username)
     {
         ChatServer server = this.chatserverdao.findByServerName(serverName);
+        this.userservice.getUser(username).getServers().remove(server);
         server.getUserList().remove(this.userservice.getUser(username));
     }
-
-
-    //Creating & Deleting Chatrooms will be handled by the ChatRoom Service.
-  /* @Override
-    public void addChatRoom(String serverName, String chatRoomName)
-    {
-        ChatServer server = this.chatserverdao.findByServerName(serverName);
-        server.getChatRooms().add(chatroomservice.getChatRoom(chatRoomName));
-    }
-
-    @Override
-    public void removeChatRoom(String serverName, String chatRoomName)
-    {
-        ChatServer server = this.chatserverdao.findByServerName(serverName);
-        server.getChatRooms().remove(chatroomservice.getChatRoom(chatRoomName));
-    } */
 
     @Override
     public List<User> getUserList(String serverName)

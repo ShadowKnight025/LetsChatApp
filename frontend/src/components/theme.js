@@ -12,6 +12,9 @@ const theme = createTheme({
   tertiary: {
    main: '#EAEAEA',
   },
+  background:{
+    main: '#424242',
+  },
  }
 });
 

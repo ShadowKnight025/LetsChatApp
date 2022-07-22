@@ -22,7 +22,6 @@ public class LetschatApplication {
 		return new BCryptPasswordEncoder();
 	}
 
-	//TODO: Fix CORS with work around or Implement CORS filter / Configuration for Graphql, Finish ChatServer and Chatroom DataFetchers
 	// Create APP main page & user profile page using Material UI on FrontEnd.
 	// Research Utility Classes + add @Secured("RoleType") for user_authorized operations to GraphQL endpoints
 }

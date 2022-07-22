@@ -25,36 +25,26 @@ import Navbar from './Navbar';
 import MuiDrawer from '@mui/material/Drawer';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
-function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'All rights reserved to Lets Chat '}
-        {' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
-
-const Drawer = styled(MuiDrawer)(
-  ({ theme }) => ({
-  width: 240,
-  flexShrink: 0,
-  whiteSpace: 'nowrap',
-  boxSizing: 'border-box',
-}));
+import MainCanvas from './MainCanvas';
+import theme from './theme';
 
 const Main = () => {
-
   // grab data from backend for all componenets & pass props from Navbar to Main
-
  return(
-   <Grid container spacing={0}>
-     <Grid item xs={0}>
-     <Navbar />
+     <Grid
+      container
+      sx={{
+        m: 'auto',
+        pl: 12,
+        pt: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems:'center'
+      }}
+     >
+       <Navbar />
+       <MainCanvas />
      </Grid>
-   </Grid>
  );
 }
 

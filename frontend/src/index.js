@@ -22,7 +22,7 @@ const apolloClient = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="letschat.local">
+    <BrowserRouter basename="letschat.local/">
     <ApolloProvider client={apolloClient}>
       <App />
     </ApolloProvider>
