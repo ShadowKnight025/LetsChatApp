@@ -12,6 +12,8 @@ repositories {
 	mavenCentral()
 }
 
+/*
+  DEPRECATED: Use dependencies specified below instead
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-graphql'
@@ -25,11 +27,27 @@ dependencies {
 	testImplementation 'org.springframework:spring-webflux'
 	testImplementation 'org.springframework.graphql:spring-graphql-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+}*/
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.graphql-java:graphql-java:19.2'
+	implementation 'org.springframework.boot:spring-boot-starter-graphql'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+	runtimeOnly 'mysql:mysql-connector-java'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework:spring-webflux'
+	testImplementation 'org.springframework.graphql:spring-graphql-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.projectlombok:lombok:1.18.24'
 	annotationProcessor 'org.projectlombok:lombok:1.18.24'
-	implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
+	implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:5.4.0"))
 	implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
-	implementation 'com.auth0:java-jwt:3.19.2'
+	implementation 'com.auth0:java-jwt:4.2.1'
 
 }
 

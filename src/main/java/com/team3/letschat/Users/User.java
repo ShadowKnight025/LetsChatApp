@@ -20,7 +20,7 @@ public class User {
     private String password;
     private String emailaddress;
     @ManyToMany @Nullable
-    private Collection<UserRole> roles = new ArrayList();
+    private Collection<UserRole> roles = new ArrayList<>();
     @ManyToMany @Nullable
     private Collection<ChatServer> servers = new ArrayList<>();
     @ManyToMany @Nullable
